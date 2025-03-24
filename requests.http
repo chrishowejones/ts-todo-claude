@@ -1,0 +1,31 @@
+# -*- restclient -*-
+
+# GET todos api
+GET http://localhost:5000/api/todos
+
+# POST a new todo
+POST http://localhost:5000/api/todos
+-> jq-set-var :id .id
+Content-Type: application/json
+
+{
+  "text": "Feed the dog."
+}
+
+# update the todo above
+PUT http://localhost:5000/api/todos/:id
+Content-Type: application/json
+
+{
+  "text": "Updated todo text."
+}
+
+# Delete the todo above
+DELETE http://localhost:5000/api/todos/:id
+
+# GET the last todo in the list
+GET http://localhost:5000/api/todos
+-> jq-set-var :id-to-del .[-1].id
+
+# Delete the last todo in the list
+DELETE http://localhost:5000/api/todos/:id-to-del
